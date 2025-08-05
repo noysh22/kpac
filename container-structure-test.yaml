@@ -1,0 +1,27 @@
+# Container structure test for distroless Java image
+schemaVersion: 2.0.0
+
+# File existence tests
+fileExistenceTests:
+  - name: "JAR file exists"
+    path: "/kpac_deploy.jar"
+    shouldExist: true
+
+  - name: "Java binary exists"
+    path: "/usr/bin/java"
+    shouldExist: true
+    isExecutableBy: "owner"
+
+# Command tests
+commandTests:
+  - name: "Java version check"
+    command: "java"
+    args: ["-version"]
+    expectedError: ["openjdk version"]
+    exitCode: 0
+
+  - name: "JAR main class check"
+    command: "java"
+    args: ["-cp", "/kpac_deploy.jar", "-Xms8m", "-Xmx64m", "--help"]
+    expectedOutput: ["Usage: java"]
+    exitCode: 0
