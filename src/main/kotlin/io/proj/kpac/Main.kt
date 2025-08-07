@@ -3,6 +3,7 @@ package io.proj.kpac
 import io.javalin.Javalin
 import io.javalin.http.Context
 import org.slf4j.LoggerFactory
+import java.io.File
 
 object Controller {
     fun get(ctx: Context) {
@@ -13,6 +14,7 @@ object Controller {
         ctx.json(ctx.body())
     }
 }
+
 
 class Server(val port: Int) {
 
@@ -40,17 +42,36 @@ class Server(val port: Int) {
 }
 
 fun main() {
+    println("Starting KPAC with WASM support...")
 
-    val port = System.getenv("PORT")?.toInt() ?: 7070
+    // Initialize WASM loader
+//    val wasmLoader = WasmLoader()
+//
+//    // Try to load a WASM module if specified
+//    val wasmPath = System.getenv("WASM_MODULE_PATH")
+//    if (wasmPath != null) {
+//        println("Attempting to load WASM module from: $wasmPath")
+//        val loaded = wasmLoader.loadModule(wasmPath)
+//        if (loaded) {
+//            println("WASM module loaded successfully!")
+//        } else {
+//            println("Failed to load WASM module, continuing without it...")
+//        }
+//    } else {
+//        println("No WASM_MODULE_PATH environment variable set, skipping WASM loading")
+//        println("To load a WASM module, set WASM_MODULE_PATH to your .wasm file path")
+//    }
 
-    val server = Server(port)
-
-    Runtime.getRuntime().addShutdownHook(
-        Thread {
-            println("Shutting down")
-            server.stop()
-        }
-    )
-    server.start()
+//    val port = System.getenv("PORT")?.toInt() ?: 7070
+//
+//    val server = Server(port)
+//
+//    Runtime.getRuntime().addShutdownHook(
+//        Thread {
+//            println("Shutting down")
+//            server.stop()
+//        }
+//    )
+//    server.start()
 
 }

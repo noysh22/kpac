@@ -11,12 +11,6 @@ package(default_visibility = ["//visibility:public"])
 
 PROJ_NAME = "kpac"
 
-# sh_binary(
-#     name = "regpo_to_wasm",
-#     srcs = ["scripts/rego-to-wasm.sh"],
-#     visibility = ["//visibility:public"],
-# )
-
 kt_kotlinc_options(
     name = "kt_kotlinc_options",
     warn = "report",
@@ -42,6 +36,8 @@ kt_jvm_library(
     deps = [
         "@maven//:io_javalin_javalin",
         "@maven//:org_slf4j_slf4j_simple",
+        "@maven//:io_github_charlietap_chasm_chasm_jvm",
+        "@maven//:io_github_charlietap_chasm_config_jvm",
     ],
 )
 
@@ -84,7 +80,7 @@ java_junit5_tests(
     size = "small",
     data = glob([
         "src/test/resources/**/*",
-    ]),
+    ]) + ["//src/test/wasm:math_wasm"],
     test_classes = glob2pkg(
         include = [
             "src/test/kotlin/**/*Test.kt",

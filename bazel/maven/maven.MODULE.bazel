@@ -23,7 +23,9 @@ MAVEN_DEPS = [
     "io.ktor:ktor-client-cio-jvm:2.3.12",
     "io.ktor:ktor-http-jvm:2.3.12",
 
-    "io.github.charlietap.chasm:chasm:0.9.81",
+    # Chasm
+    "io.github.charlietap.chasm:chasm-jvm:0.9.80",
+    "io.github.charlietap.chasm:config-jvm:0.9.80",
 ]
 
 [
