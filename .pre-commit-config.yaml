@@ -6,3 +6,8 @@ repos:
         entry: scripts/ktlint.sh
         language: system
         files: \.kt$
+        args:
+#          - --color
+#          - --color-name=Red
+          - --editorconfig
+          - ./.editorconfig
