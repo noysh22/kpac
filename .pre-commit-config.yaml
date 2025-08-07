@@ -6,4 +6,4 @@ repos:
         entry: scripts/ktlint.sh
         language: system
         files: \.kt$
-        stages: [commit, push]
+        stages: [pre-commit, pre-push]
