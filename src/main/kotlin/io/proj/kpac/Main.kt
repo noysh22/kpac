@@ -15,7 +15,6 @@ object Controller {
     }
 }
 
-
 class Server(val port: Int) {
 
     private val app = Javalin.create()
@@ -73,5 +72,4 @@ fun main() {
 //        }
 //    )
 //    server.start()
-
 }

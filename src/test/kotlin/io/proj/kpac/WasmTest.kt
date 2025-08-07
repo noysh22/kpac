@@ -27,7 +27,7 @@ class WasmTest {
         println("WASM file found at: ${actualWasmFile.absolutePath}")
         println("WASM file size: ${actualWasmFile.length()} bytes")
     }
-    
+
     @Test
     fun testWasmFileContent() {
         val wasmFile = File(WASM_PATH)
