@@ -1,6 +1,8 @@
 repos:
-  - repo: https://github.com/pinterest/ktlint
-    rev: 1.7.1
+  - repo: local
     hooks:
       - id: ktlint
-        args: ["--format"]
+        name: ktlint
+        entry: scripts/ktlint.sh
+        language: system
+        files: \.kt$
