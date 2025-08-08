@@ -1,7 +1,16 @@
 package io.proj.kpac
 
+import io.github.charlietap.chasm.embedding.invoke
+import io.github.charlietap.chasm.embedding.shapes.ChasmResult
+import io.github.charlietap.chasm.embedding.shapes.getOrNull
+import io.github.charlietap.chasm.runtime.value.ExecutionValue
+import io.github.charlietap.chasm.runtime.value.NumberValue.I32
+import io.proj.kpac.wasm.WasmLoader
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertInstanceOf
+import org.junit.jupiter.api.assertNotNull
 import java.io.File
 
 class WasmTest {
@@ -11,7 +20,7 @@ class WasmTest {
     }
 
     @Test
-    fun testWasmFileExists() {
+    fun `test wasm file exists`() {
         // Get the path to the WASM file from Bazel runfiles
         val wasmFile = File(WASM_PATH)
 
@@ -29,7 +38,7 @@ class WasmTest {
     }
 
     @Test
-    fun testWasmFileContent() {
+    fun `test wasm file content`() {
         val wasmFile = File(WASM_PATH)
         val runfilesWasmFile = File(System.getProperty("user.dir") + "/" + WASM_PATH)
         val actualWasmFile = if (wasmFile.exists()) wasmFile else runfilesWasmFile
@@ -46,5 +55,29 @@ class WasmTest {
         assertTrue(wasmBytes[3] == 0x6d.toByte(), "WASM magic byte 3 ('m')")
 
         println("WASM file is valid with magic number: ${wasmBytes.take(4).map { "%02x".format(it) }.joinToString(" ")}")
+    }
+
+    @Test
+    fun `test loadModule`() {
+        val (module, instance) = WasmLoader().loadModule(WASM_PATH)
+            ?: throw IllegalStateException("Failed to load WASM module")
+
+        assertNotNull(instance, "Failed to load WASM module")
+        assertNotNull(module, "Failed to load WASM module")
+    }
+
+    @Test
+    fun `test invoking a wasm function`() {
+        val wasmLoader = WasmLoader()
+        val (_, instance) = wasmLoader.loadModule(WASM_PATH)
+            ?: throw IllegalStateException("Failed to load WASM module")
+
+        val params = listOf(I32(3), I32(5))
+
+        // Call the function with example arguments
+        val result = invoke(wasmLoader.store(), instance, "add", params)
+
+        assertInstanceOf<ChasmResult.Success<ExecutionValue>>(result)
+        assertEquals(I32(8), result.getOrNull()?.firstOrNull())
     }
 }

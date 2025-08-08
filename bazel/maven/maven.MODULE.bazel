@@ -26,6 +26,8 @@ MAVEN_DEPS = [
     # Chasm
     "io.github.charlietap.chasm:chasm-jvm:0.9.80",
     "io.github.charlietap.chasm:config-jvm:0.9.80",
+#     "io.github.charlietap.chasm:type-jvm:0.9.80",
+#     "io.github.charlietap.chasm:invoker-jvm:0.9.80",
 ]
 
 [

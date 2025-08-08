@@ -38,6 +38,8 @@ kt_jvm_library(
         "@maven//:org_slf4j_slf4j_simple",
         "@maven//:io_github_charlietap_chasm_chasm_jvm",
         "@maven//:io_github_charlietap_chasm_config_jvm",
+        "@maven//:io_github_charlietap_chasm_type_jvm",
+        "@maven//:io_github_charlietap_chasm_invoker_jvm",
     ],
 )
 

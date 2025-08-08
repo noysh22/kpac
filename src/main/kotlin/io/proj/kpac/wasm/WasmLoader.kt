@@ -8,12 +8,14 @@ import io.github.charlietap.chasm.embedding.shapes.ChasmResult
 import io.github.charlietap.chasm.embedding.shapes.Import
 import io.github.charlietap.chasm.embedding.shapes.Instance
 import io.github.charlietap.chasm.embedding.shapes.Module
+import io.github.charlietap.chasm.embedding.shapes.Store
 import io.github.charlietap.chasm.embedding.store
 import org.slf4j.LoggerFactory
 import java.io.File
 
-class WasmLoader {
-    private val store = store()
+class WasmLoader(private val store: Store = store()) {
+
+    fun store(): Store = store
 
     fun loadModule(wasmFilePath: String): Pair<Module, Instance>? {
         return try {
