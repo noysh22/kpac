@@ -26,6 +26,11 @@ jobs:
     - name: Setup Bazel
       uses: bazelbuild/setup-bazelisk@v3
 
+    - name: Setup OPA
+      uses: open-policy-agent/setup-opa@v2
+      with:
+        version: latest
+
     - name: Setup WABT
       uses: mwilliamson/setup-wabt-action@v3
       with:
