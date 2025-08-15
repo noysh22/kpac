@@ -26,6 +26,11 @@ jobs:
     - name: Setup Bazel
       uses: bazelbuild/setup-bazelisk@v3
 
+    - name: Setup WABT
+      uses: mwilliamson/setup-wabt-action@v3
+      with:
+          wabt-version: "1.0.37"
+
     - name: Run tests
       run: bazel test //:small_tests --test_output=errors --experimental_isolated_extension_usages
 
