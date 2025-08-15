@@ -27,7 +27,7 @@ jobs:
       uses: bazelbuild/setup-bazelisk@v3
       
     - name: Run tests
-      run: bazel test //:small-test --test_output=errors
+      run: bazel test //:small_tests --test_output=errors
       
     - name: Upload test results
       uses: actions/upload-artifact@v4
