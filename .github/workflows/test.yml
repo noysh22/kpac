@@ -9,11 +9,11 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      
+
     - name: Cache Bazel
       uses: actions/cache@v4
       with:
@@ -22,13 +22,13 @@ jobs:
         key: ${{ runner.os }}-bazel-${{ hashFiles('.bazelversion', '.bazelrc', 'MODULE.bazel', 'MODULE.bazel.lock') }}
         restore-keys: |
           ${{ runner.os }}-bazel-
-          
+
     - name: Setup Bazel
       uses: bazelbuild/setup-bazelisk@v3
-      
+
     - name: Run tests
-      run: bazel test //:small_tests --test_output=errors
-      
+      run: bazel test //:small_tests --test_output=errors --experimental_isolated_extension_usages
+
     - name: Upload test results
       uses: actions/upload-artifact@v4
       if: always()
