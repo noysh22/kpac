@@ -1,9 +1,8 @@
-package io.proj.kpac
+package io.github.noysh22.kpac
 
 import io.javalin.Javalin
 import io.javalin.http.Context
 import org.slf4j.LoggerFactory
-import java.io.File
 
 object Controller {
     fun get(ctx: Context) {

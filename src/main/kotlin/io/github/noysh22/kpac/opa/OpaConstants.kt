@@ -1,4 +1,4 @@
-package io.proj.kpac.opa
+package io.github.noysh22.kpac.opa
 
 object OpaConstants {
     const val OPA_MODULE_NAME = "env"

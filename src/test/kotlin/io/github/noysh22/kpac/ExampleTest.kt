@@ -1,4 +1,4 @@
-package io.proj.kpac
+package io.github.noysh22.kpac
 
 import com.google.gson.Gson
 import io.ktor.client.HttpClient

@@ -1,4 +1,4 @@
-package io.proj.kpac.opa
+package io.github.noysh22.kpac.opa
 
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream

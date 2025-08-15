@@ -1,5 +1,6 @@
-package io.proj.kpac.opa
+package io.github.noysh22.kpac.opa
 
+import io.github.noysh22.kpac.opa.OpaBundle
 import io.kotest.assertions.asClue
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe

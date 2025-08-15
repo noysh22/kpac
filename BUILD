@@ -47,7 +47,7 @@ kt_jvm_library(
 # Java binary (executable JAR with all dependencies)
 java_binary(
     name = PROJ_NAME,
-    main_class = "io.proj.kpac.MainKt",
+    main_class = "io.github.noysh22.kpac.MainKt",
     runtime_deps = [
         ":%s_lib" % PROJ_NAME,
     ],
@@ -137,6 +137,7 @@ oci_load(
 # Container structure test (platform auto-detected)
 container_structure_test(
     name = PROJ_NAME + "_container_test",
+    size = "medium",
     args = select({
         "@platforms//cpu:arm64": [
             "--platform",

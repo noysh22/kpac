@@ -1,4 +1,4 @@
-package io.proj.kpac.opa
+package io.github.noysh22.kpac.opa
 
 import io.github.charlietap.chasm.embedding.dsl.functionImport
 import io.github.charlietap.chasm.embedding.dsl.imports
@@ -6,7 +6,7 @@ import io.github.charlietap.chasm.embedding.shapes.Import
 import io.github.charlietap.chasm.embedding.shapes.Instance
 import io.github.charlietap.chasm.embedding.shapes.Module
 import io.github.charlietap.chasm.embedding.shapes.Store
-import io.proj.kpac.wasm.WasmLoader
+import io.github.noysh22.kpac.wasm.WasmLoader
 
 object OpaFunctions {
     fun opaAbort(store: Store) = functionImport(store) {

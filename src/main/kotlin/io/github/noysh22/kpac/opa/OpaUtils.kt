@@ -1,4 +1,4 @@
-package io.proj.kpac.opa
+package io.github.noysh22.kpac.opa
 
 import io.github.charlietap.chasm.embedding.memory
 import io.github.charlietap.chasm.embedding.shapes.Module

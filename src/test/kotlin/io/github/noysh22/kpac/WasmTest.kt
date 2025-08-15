@@ -1,16 +1,16 @@
-package io.proj.kpac
+package io.github.noysh22.kpac
 
 import io.github.charlietap.chasm.embedding.invoke
 import io.github.charlietap.chasm.embedding.shapes.ChasmResult
 import io.github.charlietap.chasm.embedding.shapes.getOrNull
 import io.github.charlietap.chasm.runtime.value.ExecutionValue
 import io.github.charlietap.chasm.runtime.value.NumberValue.I32
+import io.github.noysh22.kpac.wasm.WasmLoader
 import io.kotest.assertions.asClue
 import io.kotest.matchers.comparables.shouldBeGreaterThan
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
-import io.proj.kpac.wasm.WasmLoader
 import org.junit.jupiter.api.Test
 import java.io.File
 

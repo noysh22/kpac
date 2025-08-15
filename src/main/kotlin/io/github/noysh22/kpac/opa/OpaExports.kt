@@ -1,4 +1,4 @@
-package io.proj.kpac.opa
+package io.github.noysh22.kpac.opa
 
 class OpaExports : OpaApi {
     override fun opaEvalCtxNew(): OpaAddr {

@@ -1,4 +1,4 @@
-package io.proj.kpac.wasm
+package io.github.noysh22.kpac.wasm
 
 import io.github.charlietap.chasm.embedding.error.ChasmError.DecodeError
 import io.github.charlietap.chasm.embedding.error.ChasmError.ExecutionError
