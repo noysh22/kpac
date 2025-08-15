@@ -5,12 +5,13 @@ import io.github.charlietap.chasm.embedding.shapes.ChasmResult
 import io.github.charlietap.chasm.embedding.shapes.getOrNull
 import io.github.charlietap.chasm.runtime.value.ExecutionValue
 import io.github.charlietap.chasm.runtime.value.NumberValue.I32
+import io.kotest.assertions.asClue
+import io.kotest.matchers.comparables.shouldBeGreaterThan
+import io.kotest.matchers.nulls.shouldNotBeNull
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeInstanceOf
 import io.proj.kpac.wasm.WasmLoader
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertInstanceOf
-import org.junit.jupiter.api.assertNotNull
 import java.io.File
 
 class WasmTest {
@@ -30,8 +31,12 @@ class WasmTest {
         // Try both locations
         val actualWasmFile = if (wasmFile.exists()) wasmFile else runfilesWasmFile
 
-        assertTrue(actualWasmFile.exists(), "WASM file should exist at: ${actualWasmFile.absolutePath}")
-        assertTrue(actualWasmFile.length() > 0, "WASM file should not be empty")
+        "WASM file should exist at: ${actualWasmFile.absolutePath}".asClue {
+            actualWasmFile.exists() shouldBe true
+        }
+        "WASM file should not be empty".asClue {
+            actualWasmFile.length() shouldBeGreaterThan 0L
+        }
 
         println("WASM file found at: ${actualWasmFile.absolutePath}")
         println("WASM file size: ${actualWasmFile.length()} bytes")
@@ -43,16 +48,16 @@ class WasmTest {
         val runfilesWasmFile = File(System.getProperty("user.dir") + "/" + WASM_PATH)
         val actualWasmFile = if (wasmFile.exists()) wasmFile else runfilesWasmFile
 
-        assertTrue(actualWasmFile.exists(), "WASM file should exist")
+        "WASM file should exist".asClue { actualWasmFile.exists() shouldBe true }
 
         val wasmBytes = actualWasmFile.readBytes()
 
         // Check WASM magic number (0x00 0x61 0x73 0x6d)
-        assertTrue(wasmBytes.size >= 4, "WASM file should be at least 4 bytes")
-        assertTrue(wasmBytes[0] == 0x00.toByte(), "WASM magic byte 0")
-        assertTrue(wasmBytes[1] == 0x61.toByte(), "WASM magic byte 1 ('a')")
-        assertTrue(wasmBytes[2] == 0x73.toByte(), "WASM magic byte 2 ('s')")
-        assertTrue(wasmBytes[3] == 0x6d.toByte(), "WASM magic byte 3 ('m')")
+        "WASM file should be at least 4 bytes".asClue { wasmBytes.size shouldBeGreaterThan 3 }
+        "WASM magic byte 0".asClue { wasmBytes[0] shouldBe 0x00.toByte() }
+        "WASM magic byte 1 ('a')".asClue { wasmBytes[1] shouldBe 0x61.toByte() }
+        "WASM magic byte 2 ('s')".asClue { wasmBytes[2] shouldBe 0x73.toByte() }
+        "WASM magic byte 3 ('m')".asClue { wasmBytes[3] shouldBe 0x6d.toByte() }
 
         println("WASM file is valid with magic number: ${wasmBytes.take(4).map { "%02x".format(it) }.joinToString(" ")}")
     }
@@ -62,8 +67,8 @@ class WasmTest {
         val (module, instance) = WasmLoader().loadModule(WASM_PATH)
             ?: throw IllegalStateException("Failed to load WASM module")
 
-        assertNotNull(instance, "Failed to load WASM module")
-        assertNotNull(module, "Failed to load WASM module")
+        "Failed to load WASM instance".asClue { instance.shouldNotBeNull() }
+        "Failed to load WASM module".asClue { module.shouldNotBeNull() }
     }
 
     @Test
@@ -77,7 +82,11 @@ class WasmTest {
         // Call the function with example arguments
         val result = invoke(wasmLoader.store(), instance, "add", params)
 
-        assertInstanceOf<ChasmResult.Success<ExecutionValue>>(result)
-        assertEquals(I32(8), result.getOrNull()?.firstOrNull())
+        "Result should be successful".asClue {
+            result.shouldBeInstanceOf<ChasmResult.Success<ExecutionValue>>()
+        }
+        "Function result should equal I32(8)".asClue {
+            result.getOrNull()?.firstOrNull() shouldBe I32(8)
+        }
     }
 }

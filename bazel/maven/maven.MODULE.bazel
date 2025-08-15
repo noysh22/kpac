@@ -8,6 +8,9 @@ MAVEN_DEPS = [
     "com.google.guava:guava:jar:33.3.0-jre",
     "com.google.code.gson:gson:2.11.0",
 
+    # Apache Commons
+    "org.apache.commons:commons-compress:1.28.0",
+
     # Testing Junit5
     "org.junit.jupiter:junit-jupiter:jar:5.13.2",
     "org.junit.jupiter:junit-jupiter-params:5.13.2",
@@ -24,10 +27,14 @@ MAVEN_DEPS = [
     "io.ktor:ktor-http-jvm:2.3.12",
 
     # Chasm
-    "io.github.charlietap.chasm:chasm-jvm:0.9.80",
-    "io.github.charlietap.chasm:config-jvm:0.9.80",
-#     "io.github.charlietap.chasm:type-jvm:0.9.80",
+    "io.github.charlietap.chasm:chasm-jvm:1.0.0",
+    "io.github.charlietap.chasm:config-jvm:1.0.0",
+    "io.github.charlietap.chasm:memory-jvm:1.0.0",
+    "io.github.charlietap.chasm:type-jvm:1.0.0",
 #     "io.github.charlietap.chasm:invoker-jvm:0.9.80",
+
+    # Testing
+    "io.kotest:kotest-assertions-core-jvm:jar:6.0.0.M15",
 ]
 
 [

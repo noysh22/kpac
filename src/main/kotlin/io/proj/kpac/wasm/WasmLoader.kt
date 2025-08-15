@@ -17,7 +17,7 @@ class WasmLoader(private val store: Store = store()) {
 
     fun store(): Store = store
 
-    fun loadModule(wasmFilePath: String): Pair<Module, Instance>? {
+    fun loadModule(wasmFilePath: String, imports: List<Import> = emptyList()): Pair<Module, Instance>? {
         return try {
             val wasmFile = File(wasmFilePath)
             if (!wasmFile.exists()) {
@@ -28,6 +28,15 @@ class WasmLoader(private val store: Store = store()) {
             val wasmBytes = wasmFile.readBytes()
             log.info("Loading WASM module from: $wasmFilePath (${wasmBytes.size} bytes)")
 
+            return loadModule(wasmBytes, imports)
+        } catch (e: Exception) {
+            log.error("Exception while loading WASM module: ${e.message}", e)
+            null
+        }
+    }
+
+    fun loadModule(wasmBytes: ByteArray, imports: List<Import> = emptyList()): Pair<Module, Instance>? {
+        return try {
             // Parse the WASM module
             val module = when (val moduleResult: ChasmResult<Module, DecodeError> = module(wasmBytes)) {
                 is ChasmResult.Error -> {
@@ -39,9 +48,6 @@ class WasmLoader(private val store: Store = store()) {
                     moduleResult.result
                 }
             }
-
-            // Create imports (empty for now, can be extended)
-            val imports = emptyList<Import>()
 
             // Instantiate the module
             val instance = when (val instanceResult: ChasmResult<Instance, ExecutionError> = instance(store, module, imports)) {

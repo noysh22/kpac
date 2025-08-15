@@ -5,4 +5,5 @@ rego_to_wasm(
     name = "example_policy",
     src = "example.rego",
 #     tools = ["@opa_binary//file:opa"],
+    visibility = ["//visibility:public"],
 )

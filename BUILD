@@ -36,6 +36,7 @@ kt_jvm_library(
     deps = [
         "@maven//:io_javalin_javalin",
         "@maven//:org_slf4j_slf4j_simple",
+        "@maven//:org_apache_commons_commons_compress",
         "@maven//:io_github_charlietap_chasm_chasm_jvm",
         "@maven//:io_github_charlietap_chasm_config_jvm",
         "@maven//:io_github_charlietap_chasm_type_jvm",
@@ -73,6 +74,7 @@ kt_jvm_library(
         "@maven//:org_junit_jupiter_junit_jupiter_api",
         "@maven//:org_junit_jupiter_junit_jupiter_engine",
         "@maven//:org_junit_platform_junit_platform_console",
+        "@maven//:io_kotest_kotest_assertions_core_jvm",
     ],
 )
 
@@ -82,7 +84,10 @@ java_junit5_tests(
     size = "small",
     data = glob([
         "src/test/resources/**/*",
-    ]) + ["//src/test/wasm:math_wasm"],
+    ]) + [
+        "//src/test/wasm:math_wasm",
+        "//src/rego:example_policy"
+    ],
     test_classes = glob2pkg(
         include = [
             "src/test/kotlin/**/*Test.kt",
