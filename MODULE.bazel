@@ -65,10 +65,17 @@ http_jar = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_j
 
 git_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
-# Create OPA binary target
+# Create OPA binary targets for different platforms
 http_file(
-    name = "opa_binary",
+    name = "opa_binary_darwin_arm64",
     downloaded_file_path = "opa",
     executable = True,
     urls = ["https://openpolicyagent.org/downloads/v1.7.1/opa_darwin_arm64_static"],
+)
+
+http_file(
+    name = "opa_binary_linux_amd64",
+    downloaded_file_path = "opa",
+    executable = True,
+    urls = ["https://openpolicyagent.org/downloads/v1.7.1/opa_linux_amd64_static"],
 )
