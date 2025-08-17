@@ -56,6 +56,29 @@ bazel_dep(name = "rules_jvm_external", version = "6.7")
 include("//bazel/maven:maven.MODULE.bazel")
 # /Maven
 
+# Rego to WASM Bazel rule (external)
+bazel_dep(name = "rules_rego_wasm", version = "0.1.0")
+
+git_override(
+    module_name = "rules_rego_wasm",
+    remote = "https://github.com/noysh22/rules-rego-wasm",
+    commit = "dbf71deb2042fc6c7d358a869e1727c3f217aaa3",
+)
+
+opa = use_extension("@rules_rego_wasm//:extensions.bzl", "opa")
+opa.tool(version = "v1.7.1")
+use_repo(opa,
+    "rules_rego_wasm_opa_macos_arm64",
+    "rules_rego_wasm_opa_linux_amd64",
+    "rules_rego_wasm_toolchains",
+)
+
+# Register the toolchains created by the extension
+register_toolchains(
+    "@rules_rego_wasm_toolchains//:linux_amd64_toolchain",
+    "@rules_rego_wasm_toolchains//:macos_arm64_toolchain",
+)
+
 # non-bzlmod things
 http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
@@ -65,17 +88,3 @@ http_jar = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_j
 
 git_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
-# Create OPA binary targets for different platforms
-http_file(
-    name = "opa_binary_darwin_arm64",
-    downloaded_file_path = "opa",
-    executable = True,
-    urls = ["https://openpolicyagent.org/downloads/v1.7.1/opa_darwin_arm64_static"],
-)
-
-http_file(
-    name = "opa_binary_linux_amd64",
-    downloaded_file_path = "opa",
-    executable = True,
-    urls = ["https://openpolicyagent.org/downloads/v1.7.1/opa_linux_amd64_static"],
-)

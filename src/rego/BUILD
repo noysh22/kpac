@@ -1,9 +1,8 @@
-load("//bazel:rego.bzl", "rego_to_wasm")
+load("@rules_rego_wasm//rego:defs.bzl", "rego_to_wasm")
 
 # Example Rego to WASM compilation
 rego_to_wasm(
     name = "example_policy",
     src = "example.rego",
-#     tools = ["@opa_binary//file:opa"],
     visibility = ["//visibility:public"],
 )
